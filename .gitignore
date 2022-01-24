@@ -1,0 +1,11 @@
+.vs/
+Techievibe.Api/bin/
+Techievibe.Api/obj/
+Techievibe.Core/bin/
+Techievibe.Core/obj/
+Techievibe.Infrastructure/bin/
+Techievibe.Infrastructure/obj/
+Techievibe.Models/bin/
+Techievibe.Models/obj/
+Techievibe.Services.Blog/bin/
+Techievibe.Services.Blog/obj/
