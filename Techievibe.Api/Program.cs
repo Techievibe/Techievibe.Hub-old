@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SumoLogic.Logging.AspNetCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,7 +22,17 @@ namespace Techievibe.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                    .ConfigureLogging((hostingContext, logging) =>
+                    {
+                        logging.ClearProviders();
+                        logging.AddConsole();
+                        logging.AddSumoLogic(Environment.GetEnvironmentVariable("SumoUrl"));
+                        logging.AddDebug();
+                        logging.AddEventSourceLogger();
+                    })
+                    .UseStartup<Startup>();
                 });
+
     }
 }
