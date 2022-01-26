@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,9 @@ using Newtonsoft.Json;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
+using SumoLogic.Logging;
+using SumoLogic.Logging.AspNetCore;
+using Techievibe.Logging.Core;
 
 namespace Techievibe.Api
 {
@@ -33,9 +37,10 @@ namespace Techievibe.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddCors();
+
+            services.AddSingleton<ISumoLogHelper, SumoLogHelper>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
@@ -55,10 +60,6 @@ namespace Techievibe.Api
                   
                 });
 
-                //// Set the comments path for the Swagger JSON and UI.
-                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath, true);
             });
         }
 
